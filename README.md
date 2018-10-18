@@ -14,7 +14,7 @@ npm install
 
 ## Development
 
-Start a local Django development server for the API, see [tkapi-explorer-server](https://github.com/bartromgens/tkapi-explorer-server)
+Start a local Django development server for the API, see [tkapi-explorer-server](https://github.com/openkamer/tkapi-explorer-server)
 
 Run a development Angular server that uses a local tkapi-explorer-server api,
 ```
