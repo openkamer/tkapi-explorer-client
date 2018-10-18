@@ -23,7 +23,6 @@ export namespace ObjectFactory {
 
 
 export abstract class BaseObject {
-  id: number;
 
   protected abstract doCreateFromResource(resource: BaseResource, baseObject: BaseObject);
 
@@ -33,22 +32,20 @@ export abstract class BaseObject {
     return object;
   }
 
-  private static setBaseProperties(resource: BaseResource, baseObject: BaseObject) {
-    baseObject.id = resource.id;
-  }
+  private static setBaseProperties(resource: BaseResource, baseObject: BaseObject) { }
 }
 
 
 export class EntityCollection extends BaseObject {
   type: string;
-  entities = new Array<Entity>();
+  entities: Entity[] = [];
 
   protected doCreateFromResource(resource: EntityCollectionResource, entityCollection: EntityCollection) {
     entityCollection.type = resource.name;
     console.log('items', resource);
     console.log('resource.items.length', resource.items.length);
     if (resource.items.length === undefined) {
-      const resourceItem = resource.items as EntityResource;
+      const resourceItem = resource.items as any;
       entityCollection.entities.push(ObjectFactory.createFromResource(Entity, resourceItem));
     } else {
       for (const entityResource of resource.items) {
