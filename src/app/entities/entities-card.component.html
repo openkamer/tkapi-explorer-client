@@ -3,7 +3,11 @@
     <span class="font-weight-bold">{{ entityCollection.type }}</span>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let entity of entityCollection.entities">
+    <li class="list-group-item" *ngFor="let entity of entityCollection.entitiesVisible">
       <app-entity-card [entity]="entity"></app-entity-card>
+    </li>
+    <li class="list-group-item" *ngIf="entityCollection.entities.length > entityCollection.entitiesVisible.length">
+      <div class="alert alert-warning">More available but not shown... Pagination not yet implemented.</div>
+    </li>
   </ul>
 </div>

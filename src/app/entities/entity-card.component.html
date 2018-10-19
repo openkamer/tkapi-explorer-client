@@ -13,7 +13,17 @@
     <li class="list-group-item">
       <div *ngFor="let relation of entity.relations">
         <span class="font-weight-bold" style="color: purple;">{{ relation.key }}</span> :
-        <a [routerLink]="['/entities/detail']" [queryParams]="{ url: relation.url }">{{ relation.type }}</a>
+        <a *ngIf="relation.sizeKnown && relation.size" [routerLink]="['/entities/detail']" [queryParams]="{ url: relation.url }">
+          {{ relation.type }}
+        </a>
+        <span *ngIf="relation.size >= 250">
+          (>{{ relation.size }})
+        </span>
+        <span *ngIf="relation.size > 0 && relation.size < 250">
+          ({{ relation.size }})
+        </span>
+        <span *ngIf="relation.sizeKnown && relation.size === 0">None</span>
+        <span *ngIf="!relation.sizeKnown">Loading relation...</span>
       </div>
     </li>
   </ul>

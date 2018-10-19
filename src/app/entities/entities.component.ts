@@ -18,7 +18,7 @@ export class EntitiesComponent implements OnInit {
     this.route.queryParams.subscribe(queryParams => {
       const url = queryParams['url'];
       this.tkapiService.getEntitiesUrl(url).subscribe(entityCollection => {
-        console.log(entityCollection);
+        // console.log(entityCollection);
         this.entityCollection = entityCollection;
       });
     });

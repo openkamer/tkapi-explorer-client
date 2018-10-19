@@ -3,6 +3,7 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Entity } from '../core/entities';
 import { BsModalService } from 'ngx-bootstrap';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import {TKApiService} from '../core/tkapi.service';
 
 
 @Component({
@@ -13,9 +14,19 @@ export class EntityCardComponent implements OnInit {
   @Input() entity: Entity;
   modalRef: BsModalRef;
 
-  constructor(private modalService: BsModalService) {}
+  constructor(private tkapiService: TKApiService, private modalService: BsModalService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    for (const relation of this.entity.relations) {
+      this.tkapiService.getEntitiesUrl(relation.url.href).subscribe(entityCollection => {
+        if (entityCollection.entities.length === 0) {
+          relation.type = null;
+        }
+        relation.size = entityCollection.entities.length;
+        relation.sizeKnown = true;
+      });
+    }
+  }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);

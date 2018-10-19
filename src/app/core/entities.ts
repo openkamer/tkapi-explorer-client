@@ -39,11 +39,11 @@ export abstract class BaseObject {
 export class EntityCollection extends BaseObject {
   type: string;
   entities: Entity[] = [];
+  entitiesVisible: Entity[] = [];
+  public static readonly MAX_ENTITIES = 5;
 
   protected doCreateFromResource(resource: EntityCollectionResource, entityCollection: EntityCollection) {
     entityCollection.type = resource.type;
-    console.log('items', resource);
-    console.log('resource.items.length', resource.items.length);
     if (resource.items.length === undefined) {
       const resourceItem = resource.items as any;
       entityCollection.entities.push(ObjectFactory.createFromResource(Entity, resourceItem));
@@ -53,6 +53,8 @@ export class EntityCollection extends BaseObject {
         entityCollection.entities.push(ObjectFactory.createFromResource(Entity, resourceItem));
       }
     }
+    const entities = entityCollection.entities.slice();
+    entityCollection.entitiesVisible = entities.splice(0, EntityCollection.MAX_ENTITIES);
     return entityCollection;
   }
 }
@@ -68,6 +70,8 @@ export class EntityRelation {
   key: string;
   type: string;
   url: URL;
+  size: number;
+  sizeKnown = false;
 }
 
 
