@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 
 import { EntitiesRoutingModule } from './entities-routing.module';
+import { EntitiesComponent } from './entities.component';
 import { ExplorerComponent } from './explorer.component';
 import { EntitiesCardComponent } from './entities-card.component';
-import { EntitiesComponent } from './entities.component';
+import { EntityCardComponent } from './entity-card.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { EntitiesComponent } from './entities.component';
   declarations: [
     ExplorerComponent,
     EntitiesComponent,
-    EntitiesCardComponent
+    EntitiesCardComponent,
+    EntityCardComponent,
   ],
 })
 export class EntitiesModule { }

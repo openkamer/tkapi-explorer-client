@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-header">
+    <span class="font-weight-bold">{{ entity.type }}</span>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <div *ngFor="let attributes of entity.attributes">
+        <span style="color: red;">{{ attributes.key }}</span> :
+        <span style="color: green;">{{ attributes.value }}</span>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div *ngFor="let relation of entity.relations">
+        <span class="font-weight-bold" style="color: purple;">{{ relation.key }}</span> :
+        <a [routerLink]="['/entities/detail']" [queryParams]="{ url: relation.url }">{{ relation.type }}</a>
+      </div>
+    </li>
+  </ul>
+</div>
