@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 
-import { TKApiService } from '../core/tkapi.service';
 import { Entity } from '../core/entities';
+import { BsModalService } from 'ngx-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 
 @Component({
@@ -10,8 +11,13 @@ import { Entity } from '../core/entities';
 })
 export class EntityCardComponent implements OnInit {
   @Input() entity: Entity;
+  modalRef: BsModalRef;
 
-  constructor(private tkapiService: TKApiService) {}
+  constructor(private modalService: BsModalService) {}
 
   ngOnInit(): void { }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { CollapseModule } from 'ngx-bootstrap';
+import { CollapseModule, ModalModule } from 'ngx-bootstrap';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 
 /**
@@ -13,6 +13,7 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
     CommonModule,
     FormsModule,
     CollapseModule,
+    ModalModule,
     PrettyJsonModule,
   ],
   declarations: [
@@ -23,7 +24,8 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
     FormsModule,
     ReactiveFormsModule,
     CollapseModule,
-    PrettyJsonModule
+    ModalModule,
+    PrettyJsonModule,
   ],
 })
 export class SharedModule {
