@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ExplorerComponent } from './explorer.component';
-import { EntitiesComponent } from './entities.component';
+import { EntitiesUrlComponent } from './entities-url.component';
 import { EntitiesTypeComponent } from './entities-type.component';
 
 const mapRoutes: Routes = [
@@ -26,7 +26,7 @@ const mapRoutes: Routes = [
   },
   {
     path: 'list',
-    component: EntitiesComponent,
+    component: EntitiesUrlComponent,
     data: {
       title: 'TKAPI Entities'
     },

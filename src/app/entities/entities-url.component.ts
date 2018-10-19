@@ -6,9 +6,9 @@ import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
-  templateUrl: 'entities.component.html',
+  templateUrl: 'entities-url.component.html',
 })
-export class EntitiesComponent implements OnInit {
+export class EntitiesUrlComponent implements OnInit {
   @Input() entityCollection: EntityCollection;
 
   constructor(private tkapiService: TKApiService, private route: ActivatedRoute) {}

@@ -14,7 +14,6 @@ export class EntitiesTypeComponent implements OnInit {
   constructor(private tkapiService: TKApiService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    console.log('test');
     this.route.queryParams.subscribe(queryParams => {
       const type = queryParams['type'];
       this.tkapiService.getEntitiesByType(type).subscribe(entityCollection => {
