@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { Utils } from './utils';
 import { CacheService } from './cache.service';
 
-import { EntityCollection, ObjectFactory } from './entities';
-import { EntityCollectionResource } from './entities.resource';
+import {EntityCollection, EntityType, ObjectFactory} from './entities';
+import {EntityCollectionResource, EntityTypeResource} from './entities.resource';
 
 
 @Injectable()
@@ -16,12 +16,29 @@ export class TKApiService {
 
   constructor(private httpClient: HttpClient, private cacheService: CacheService) {}
 
-  public getEntities(): Observable<EntityCollection[]> {
-    const url = Utils.API_BASE_URL + 'entities/';
-    const observable = new Observable<EntityCollection[]>(observer => {
-      this.httpClient.get<EntityCollectionResource[]>(url).subscribe(resources => {
+  public getEntityTypes(): Observable<EntityType[]> {
+    const url = Utils.API_BASE_URL + 'entity/types/';
+    const observable = new Observable<EntityType[]>(observer => {
+      this.httpClient.get<EntityTypeResource[]>(url).subscribe(resources => {
         console.log(resources);
-        observer.next(ObjectFactory.createFromResources(EntityCollection, resources));
+        const entities: EntityType[] = [];
+        for (const resource of resources) {
+          entities.push(ObjectFactory.createFromResource(EntityType, resource));
+        }
+        observer.next(entities);
+        observer.complete();
+      });
+    });
+    return this.cacheService.get(url, observable, this.CACHE_EXPIRATION_MILLIS);
+  }
+
+  public getEntitiesByType(type: string): Observable<EntityCollection> {
+    const url = Utils.API_BASE_URL + 'entities/' + type + '/';
+    console.log(url);
+    const observable = new Observable<EntityCollection>(observer => {
+      this.httpClient.get<EntityCollectionResource>(url).subscribe(resources => {
+        console.log(resources);
+        observer.next(ObjectFactory.createFromResource(EntityCollection, resources));
         observer.complete();
       });
     });

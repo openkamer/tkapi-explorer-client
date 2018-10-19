@@ -6,4 +6,11 @@ export interface EntityCollectionResource extends BaseResource, String {
   items: EntityResource[];
 }
 
+
 export interface EntityResource extends BaseResource, String { }
+
+
+export interface EntityTypeResource extends BaseResource {
+  type: string;
+  items: EntityResource[];
+}

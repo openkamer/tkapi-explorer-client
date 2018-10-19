@@ -1,4 +1,4 @@
-import { BaseResource, EntityCollectionResource, EntityResource } from './entities.resource';
+import {BaseResource, EntityCollectionResource, EntityResource, EntityTypeResource} from './entities.resource';
 import { Utils } from './utils';
 
 
@@ -33,6 +33,16 @@ export abstract class BaseObject {
   }
 
   private static setBaseProperties(resource: BaseResource, baseObject: BaseObject) { }
+}
+
+
+export class EntityType extends BaseObject {
+  type: string;
+  // items: Entity[];
+
+  protected doCreateFromResource(resource: EntityTypeResource, entityType: EntityType) {
+    entityType.type = resource.type;
+  }
 }
 
 
@@ -107,7 +117,7 @@ export class Entity extends BaseObject {
       }
 
       if (key.includes('@odata.navigationLinkUrl')) {
-        const url = Utils.API_BASE_URL + 'entity/?url=' + entity.json[key];
+        const url = Utils.API_BASE_URL + 'entities/?url=' + entity.json[key];
         const relation = new EntityRelation();
         relation.key = key.replace('@odata.navigationLinkUrl', '');
         relation.type = key.replace('@odata.navigationLinkUrl', '');

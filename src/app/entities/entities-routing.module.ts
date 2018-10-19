@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ExplorerComponent } from './explorer.component';
 import { EntitiesComponent } from './entities.component';
+import { EntitiesTypeComponent } from './entities-type.component';
 
 const mapRoutes: Routes = [
   {
@@ -17,10 +18,17 @@ const mapRoutes: Routes = [
     }
   },
   {
-    path: 'detail',
+    path: 'type',
+    component: EntitiesTypeComponent,
+    data: {
+      title: 'TKAPI Entity Type'
+    },
+  },
+  {
+    path: 'list',
     component: EntitiesComponent,
     data: {
-      title: 'TKAPI EntityCollection'
+      title: 'TKAPI Entities'
     },
   }
 ];
