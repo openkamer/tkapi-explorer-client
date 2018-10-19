@@ -46,6 +46,19 @@ export class TKApiService {
   }
 
   public getEntitiesUrl(url: string): Observable<EntityCollection> {
+    url = Utils.API_BASE_URL + 'entities/?url=' + url;
+    const observable = new Observable<EntityCollection>(observer => {
+      this.httpClient.get<EntityCollectionResource>(url).subscribe(resource => {
+        observer.next(ObjectFactory.createFromResource(EntityCollection, resource));
+        observer.complete();
+      });
+    });
+    return this.cacheService.get(url, observable, this.CACHE_EXPIRATION_MILLIS);
+  }
+
+  public getEntitiesNextPage(url: string): Observable<EntityCollection> {
+    console.log('getEntitiesNextPage', url);
+    url = Utils.API_BASE_URL + 'entities/page/' + encodeURIComponent(url) + '/';
     const observable = new Observable<EntityCollection>(observer => {
       this.httpClient.get<EntityCollectionResource>(url).subscribe(resource => {
         observer.next(ObjectFactory.createFromResource(EntityCollection, resource));

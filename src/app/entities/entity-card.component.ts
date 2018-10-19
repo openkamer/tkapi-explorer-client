@@ -18,7 +18,7 @@ export class EntityCardComponent implements OnInit {
 
   ngOnInit(): void {
     for (const relation of this.entity.relations) {
-      this.tkapiService.getEntitiesUrl(relation.url.href).subscribe(entityCollection => {
+      this.tkapiService.getEntitiesUrl(relation.url).subscribe(entityCollection => {
         if (entityCollection.entities.length === 0) {
           relation.type = null;
         }

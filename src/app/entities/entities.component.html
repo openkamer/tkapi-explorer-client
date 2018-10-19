@@ -4,6 +4,8 @@
   </div>
 </div>
 
-<div class="list-group-item" *ngIf="entityCollection && entityCollection.entities.length > entityCollection.entitiesVisible.length">
-  <div class="alert alert-warning">More available but not shown... Pagination not yet implemented.</div>
+<div class="list-group-item" *ngIf="entityCollection && entityCollection.nextPageUrl">
+  <a [routerLink]="['/entities/list/']" [queryParams]="{ nextPageUrl: entityCollection.nextPageUrl }">Show more..</a>
 </div>
+
+<div class="mb-3"></div>

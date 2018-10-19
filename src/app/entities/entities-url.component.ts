@@ -15,10 +15,19 @@ export class EntitiesUrlComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(queryParams => {
-      const url = queryParams['url'];
-      this.tkapiService.getEntitiesUrl(url).subscribe(entityCollection => {
-        this.entityCollection = entityCollection;
-      });
+      if (queryParams['url']) {
+        const url = queryParams['url'];
+        console.log(url);
+        this.tkapiService.getEntitiesUrl(url).subscribe(entityCollection => {
+          this.entityCollection = entityCollection;
+        });
+      } else if (queryParams['nextPageUrl']) {
+        const nextPageUrl = queryParams['nextPageUrl'];
+        console.log(nextPageUrl);
+        this.tkapiService.getEntitiesNextPage(nextPageUrl).subscribe(entityCollection => {
+          this.entityCollection = entityCollection;
+        });
+      }
     });
   }
 }

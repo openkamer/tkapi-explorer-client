@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import { TKApiService } from '../core/tkapi.service';
 import { EntityCollection } from '../core/entities';
 
 
@@ -11,7 +10,7 @@ import { EntityCollection } from '../core/entities';
 export class EntitiesCardComponent implements OnInit {
   @Input() entityCollection: EntityCollection;
 
-  constructor(private tkapiService: TKApiService) {}
+  constructor() {}
 
   ngOnInit(): void { }
 }

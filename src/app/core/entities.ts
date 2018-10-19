@@ -50,10 +50,12 @@ export class EntityCollection extends BaseObject {
   type: string;
   entities: Entity[] = [];
   entitiesVisible: Entity[] = [];
-  public static readonly MAX_ENTITIES = 5;
+  nextPageUrl: string;
+  public static readonly MAX_ENTITIES = 20;
 
   protected doCreateFromResource(resource: EntityCollectionResource, entityCollection: EntityCollection) {
     entityCollection.type = resource.type;
+    entityCollection.nextPageUrl = resource.next_page_link;
     if (resource.items.length === undefined) {
       const resourceItem = resource.items as any;
       entityCollection.entities.push(ObjectFactory.createFromResource(Entity, resourceItem));
@@ -79,7 +81,7 @@ export class EntityAttribute {
 export class EntityRelation {
   key: string;
   type: string;
-  url: URL;
+  url: string;
   size: number;
   sizeKnown = false;
 }
@@ -117,11 +119,11 @@ export class Entity extends BaseObject {
       }
 
       if (key.includes('@odata.navigationLinkUrl')) {
-        const url = Utils.API_BASE_URL + 'entities/?url=' + entity.json[key];
+        const url = entity.json[key];
         const relation = new EntityRelation();
         relation.key = key.replace('@odata.navigationLinkUrl', '');
         relation.type = key.replace('@odata.navigationLinkUrl', '');
-        relation.url = new URL(url);
+        relation.url = url;
         entity.relations.push(relation);
       } else {
         const attribute = new EntityAttribute();

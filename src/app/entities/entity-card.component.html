@@ -23,7 +23,9 @@
           ({{ relation.size }})
         </span>
         <span *ngIf="relation.sizeKnown && relation.size === 0">None</span>
-        <span *ngIf="!relation.sizeKnown">Loading relation...</span>
+        <span *ngIf="!relation.sizeKnown">
+          <i class="fa fa-spinner fa-spin"></i> loading relation...
+        </span>
       </div>
     </li>
   </ul>

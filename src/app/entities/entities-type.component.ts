@@ -17,7 +17,6 @@ export class EntitiesTypeComponent implements OnInit {
     this.route.queryParams.subscribe(queryParams => {
       const type = queryParams['type'];
       this.tkapiService.getEntitiesByType(type).subscribe(entityCollection => {
-        // console.log(entityCollection);
         this.entityCollection = entityCollection;
       });
     });
