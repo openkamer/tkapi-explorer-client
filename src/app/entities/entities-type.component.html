@@ -8,6 +8,8 @@
     </div>
   </div>
 
-  <div class="m-3"></div>
+  <div class="list-group-item" *ngIf="entityCollection && entityCollection.entities.length > entityCollection.entitiesVisible.length">
+    <div class="alert alert-warning">More entities available but not shown... Pagination not yet implemented.</div>
+  </div>
 
 </div>
