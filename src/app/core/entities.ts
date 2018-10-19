@@ -41,7 +41,7 @@ export class EntityCollection extends BaseObject {
   entities: Entity[] = [];
 
   protected doCreateFromResource(resource: EntityCollectionResource, entityCollection: EntityCollection) {
-    entityCollection.type = resource.name;
+    entityCollection.type = resource.type;
     console.log('items', resource);
     console.log('resource.items.length', resource.items.length);
     if (resource.items.length === undefined) {
@@ -73,24 +73,35 @@ export class EntityRelation {
 
 export class Entity extends BaseObject {
   json: String;
-  attributes = new Array<EntityAttribute>();
-  relations = new Array<EntityRelation>();
+  type: String;
+  attributes: EntityAttribute[] = [];
+  relations: EntityRelation[] = [];
 
   protected doCreateFromResource(resource: EntityResource, entity: Entity) {
     entity.json = resource;
+
     Object.keys(entity.json).forEach(key => {
       if (key.includes('@odata.type')) {
         return;
       }
+
       if (key.includes('odata.editLink')) {
         return;
       }
+
       if (key === 'odata.id') {
         return;
       }
+
+      if (key === 'GewijzigdOp' || key === 'ApiGewijzigdOp' || key === 'Verwijderd') {
+        return;
+      }
+
       if (key === 'odata.type') {
         entity.json[key] = entity.json[key].replace('TK.DA.GGM.Models.OData.', '');
+        this.type = entity.json[key];
       }
+
       if (key.includes('@odata.navigationLinkUrl')) {
         const url = Utils.API_BASE_URL + 'entity/?url=' + entity.json[key];
         const relation = new EntityRelation();

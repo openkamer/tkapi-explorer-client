@@ -2,7 +2,7 @@ export interface BaseResource extends String { }
 
 
 export interface EntityCollectionResource extends BaseResource, String {
-  name: string;
+  type: string;
   items: EntityResource[];
 }
 
