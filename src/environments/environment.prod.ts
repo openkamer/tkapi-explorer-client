@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: '//tkapi.openkamer.org'
+  apiBaseUrl: '//tkapi.org'
 };
