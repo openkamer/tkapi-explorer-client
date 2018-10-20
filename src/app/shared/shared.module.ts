@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CollapseModule, ModalModule } from 'ngx-bootstrap';
+import { PaginationModule } from 'ngx-bootstrap';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 
 /**
@@ -14,6 +15,7 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
     FormsModule,
     CollapseModule,
     ModalModule,
+    PaginationModule,
     PrettyJsonModule,
   ],
   declarations: [
@@ -25,6 +27,7 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
     ReactiveFormsModule,
     CollapseModule,
     ModalModule,
+    PaginationModule,
     PrettyJsonModule,
   ],
 })

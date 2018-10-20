@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { CollapseModule, BsDropdownModule, ModalModule } from 'ngx-bootstrap';
+import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
+import { PaginationModule, ModalModule } from 'ngx-bootstrap';
 
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app.routing';
@@ -18,6 +19,7 @@ import { NavModule } from './nav/nav.module';
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
+    PaginationModule.forRoot(),
     CoreModule,
     NavModule,
   ],

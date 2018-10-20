@@ -5,6 +5,7 @@ export interface EntityCollectionResource extends BaseResource, String {
   type: string;
   items: EntityResource[];
   next_page_link: string;
+  total_items: number;
 }
 
 

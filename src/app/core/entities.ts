@@ -51,7 +51,7 @@ export class EntityCollection extends BaseObject {
   entities: Entity[] = [];
   entitiesVisible: Entity[] = [];
   nextPageUrl: string;
-  // public static readonly MAX_ENTITIES = 20;
+  total_items: number;
 
   protected doCreateFromResource(resource: EntityCollectionResource, entityCollection: EntityCollection) {
     entityCollection.type = resource.type;
@@ -59,11 +59,13 @@ export class EntityCollection extends BaseObject {
     if (resource.items.length === undefined) {
       const resourceItem = resource.items as any;
       entityCollection.entities.push(ObjectFactory.createFromResource(Entity, resourceItem));
+      entityCollection.total_items = 1;
     } else {
       for (const entityResource of resource.items) {
         const resourceItem = entityResource as EntityResource;
         entityCollection.entities.push(ObjectFactory.createFromResource(Entity, resourceItem));
       }
+      entityCollection.total_items = resource.total_items;
     }
     entityCollection.entitiesVisible = entityCollection.entities;
     return entityCollection;
