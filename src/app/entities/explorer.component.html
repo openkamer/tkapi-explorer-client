@@ -5,26 +5,21 @@
   <div class="m-3"></div>
 
   <div class="row">
-    <div class="col-lg-6 col-xl-4 offset-lg-3 offset-xl-4">
+    <div *ngFor="let entityType of entityTypes" class="col-lg-6 col-xl-4 col-xxl-3 mb-2">
 
       <div class="card">
-        <div class="card-header">
-          <span class="h5">Entities</span>
+        <div class="card-header text-center">
+          <a [routerLink]="['/entities/type/']" [queryParams]="{ type: entityType.type, page: 1 }">
+            <span class="h5">{{ entityType.type }}</span>
+          </a>
         </div>
-        <div *ngIf="!entityTypes" class="card-body">
-          <i class="fa fa-lg fa-spinner fa-spin"></i> loading entities...
-        </div>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let entityType of entityTypes">
-            <a [routerLink]="['/entities/type/']" [queryParams]="{ type: entityType.type, page: 1 }">
-              <span class="h6">{{ entityType.type }}</span>
-            </a>
-          </li>
-        </ul>
-          <!--<app-entities-card [entityCollection]="entityCollection"></app-entities-card>-->
       </div>
 
     </div>
+  </div>
+
+  <div *ngIf="!entityTypes" class="card-body">
+    <i class="fa fa-lg fa-spinner fa-spin"></i> loading entities...
   </div>
 
   <div class="m-3"></div>
