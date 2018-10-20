@@ -4,8 +4,4 @@
   </div>
 </div>
 
-<div class="list-group-item" *ngIf="entityCollection && entityCollection.nextPageUrl">
-  <a [routerLink]="['/entities/list/']" [queryParams]="{ nextPageUrl: entityCollection.nextPageUrl }">Show more..</a>
-</div>
-
 <div class="mb-3"></div>

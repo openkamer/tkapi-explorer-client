@@ -18,14 +18,6 @@ export class EntityCardComponent implements OnInit {
 
   ngOnInit(): void {
     for (const relation of this.entity.relations) {
-      // this.tkapiService.getEntitiesUrl(relation.url).subscribe(entityCollection => {
-      //   if (entityCollection.entities.length === 0) {
-      //     relation.type = null;
-      //   }
-      //   relation.size = entityCollection.entities.length;
-      //   relation.sizeKnown = true;
-      // });
-
       const entityUrl = this.entity.getAttribute('odata.editLink').value;
       this.tkapiService.getEntityLinks(entityUrl, relation.type).subscribe(links => {
         relation.size = links.length;

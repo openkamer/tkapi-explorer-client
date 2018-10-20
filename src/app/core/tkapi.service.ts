@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { Utils } from './utils';
 import { CacheService } from './cache.service';
 
-import {EntityCollection, EntityType, ObjectFactory} from './entities';
-import {EntityCollectionResource, EntityTypeResource} from './entities.resource';
+import { EntityCollection, EntityType, ObjectFactory } from './entities';
+import { EntityCollectionResource, EntityTypeResource } from './entities.resource';
 
 
 @Injectable()
@@ -20,7 +20,6 @@ export class TKApiService {
     const url = Utils.API_BASE_URL + 'entity/types/';
     const observable = new Observable<EntityType[]>(observer => {
       this.httpClient.get<EntityTypeResource[]>(url).subscribe(resources => {
-        console.log(resources);
         const entities: EntityType[] = [];
         for (const resource of resources) {
           entities.push(ObjectFactory.createFromResource(EntityType, resource));
@@ -32,21 +31,10 @@ export class TKApiService {
     return this.cacheService.get(url, observable, this.CACHE_EXPIRATION_MILLIS);
   }
 
-  public getEntitiesByType(type: string, maxItems: number, skipItems: number): Observable<EntityCollection> {
-    const url = Utils.API_BASE_URL + 'entities/' + type + '/?' + 'max_items=' + maxItems + '&skip_items=' + skipItems;
-    console.log(url);
-    const observable = new Observable<EntityCollection>(observer => {
-      this.httpClient.get<EntityCollectionResource>(url).subscribe(resources => {
-        console.log(resources);
-        observer.next(ObjectFactory.createFromResource(EntityCollection, resources));
-        observer.complete();
-      });
-    });
-    return this.cacheService.get(url, observable, this.CACHE_EXPIRATION_MILLIS);
-  }
-
-  public getEntitiesUrl(url: string): Observable<EntityCollection> {
-    url = Utils.API_BASE_URL + 'entities/?url=' + url;
+  public getEntitiesUrl(url: string, maxItems: number, skipItems: number, isSingleItem: boolean): Observable<EntityCollection> {
+    url = Utils.API_BASE_URL + 'entities/?url=' + url + '&max_items=' + maxItems + '&skip_items='
+          + skipItems + '&return_count=' + !isSingleItem + '&is_single_item=' + isSingleItem;
+    console.log('getEntitiesUrl', url);
     const observable = new Observable<EntityCollection>(observer => {
       this.httpClient.get<EntityCollectionResource>(url).subscribe(resource => {
         observer.next(ObjectFactory.createFromResource(EntityCollection, resource));
@@ -62,18 +50,6 @@ export class TKApiService {
     const observable = new Observable<string[]>(observer => {
       this.httpClient.get<string[]>(url).subscribe(links => {
         observer.next(links);
-        observer.complete();
-      });
-    });
-    return this.cacheService.get(url, observable, this.CACHE_EXPIRATION_MILLIS);
-  }
-
-  public getEntitiesNextPage(url: string): Observable<EntityCollection> {
-    console.log('getEntitiesNextPage', url);
-    url = Utils.API_BASE_URL + 'entities/page/' + encodeURIComponent(url) + '/';
-    const observable = new Observable<EntityCollection>(observer => {
-      this.httpClient.get<EntityCollectionResource>(url).subscribe(resource => {
-        observer.next(ObjectFactory.createFromResource(EntityCollection, resource));
         observer.complete();
       });
     });

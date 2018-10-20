@@ -4,7 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { EntitiesRoutingModule } from './entities-routing.module';
 import { EntitiesComponent } from './entities.component';
-import { EntitiesUrlComponent } from './entities-url.component';
+import { EntitiesRelatedComponent } from './entities-related.component';
 import { EntitiesTypeComponent } from './entities-type.component';
 import { ExplorerComponent } from './explorer.component';
 import { EntitiesCardComponent } from './entities-card.component';
@@ -18,7 +18,7 @@ import { EntityCardComponent } from './entity-card.component';
   declarations: [
     ExplorerComponent,
     EntitiesComponent,
-    EntitiesUrlComponent,
+    EntitiesRelatedComponent,
     EntitiesTypeComponent,
     EntitiesCardComponent,
     EntityCardComponent,

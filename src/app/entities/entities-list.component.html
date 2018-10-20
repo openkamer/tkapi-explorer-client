@@ -1,15 +1,17 @@
 <div class="container-fluid">
 
-  <div class="m-2" *ngIf="entityCollection">{{ entityCollection.total_items }} entities found</div>
+  <div class="m-3"></div>
+
+  <div class="m-2" *ngIf="entityCollection">{{ entityCollection.totalItems }} entities found</div>
 
   <app-entities [entityCollection]="entityCollection"></app-entities>
 
   <hr/>
-  
+
   <div *ngIf="entityCollection" class="row">
     <div class="col-xs-12 col-12">
       <pagination class="justify-content-center"
-          [totalItems]="entityCollection.total_items"
+          [totalItems]="entityCollection.totalItems"
           [(ngModel)]="currentPage"
           (pageChanged)="pageChanged($event)"
           [maxSize]="10"

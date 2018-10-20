@@ -17,7 +17,7 @@
       <div *ngFor="let relation of entity.relations">
 
         <span class="font-weight-bold" style="color: purple;">{{ relation.key }}</span> :
-        <a *ngIf="relation.sizeKnown && relation.size" [routerLink]="['/entities/list']" [queryParams]="{ url: relation.url }">
+        <a *ngIf="relation.sizeKnown && relation.size" [routerLink]="['/entities/list']" [queryParams]="{ url: relation.url, totalItems: relation.size }">
           {{ relation.type }}
         </a>
 

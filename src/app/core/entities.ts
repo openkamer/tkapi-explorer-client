@@ -51,7 +51,7 @@ export class EntityCollection extends BaseObject {
   entities: Entity[] = [];
   entitiesVisible: Entity[] = [];
   nextPageUrl: string;
-  total_items: number;
+  totalItems: number;
 
   protected doCreateFromResource(resource: EntityCollectionResource, entityCollection: EntityCollection) {
     entityCollection.type = resource.type;
@@ -59,13 +59,13 @@ export class EntityCollection extends BaseObject {
     if (resource.items.length === undefined) {
       const resourceItem = resource.items as any;
       entityCollection.entities.push(ObjectFactory.createFromResource(Entity, resourceItem));
-      entityCollection.total_items = 1;
+      entityCollection.totalItems = 1;
     } else {
       for (const entityResource of resource.items) {
         const resourceItem = entityResource as EntityResource;
         entityCollection.entities.push(ObjectFactory.createFromResource(Entity, resourceItem));
       }
-      entityCollection.total_items = resource.total_items;
+      entityCollection.totalItems = resource.total_items;
     }
     entityCollection.entitiesVisible = entityCollection.entities;
     return entityCollection;
