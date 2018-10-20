@@ -1,7 +1,9 @@
 # tkapi-explorer-client
 
-Explorer (web-application) of the Tweede Kamer (Dutch parliament) Open Data Portaal (OData API).
+Explorer (web-application) of the Tweede Kamer (Dutch parliament) Open Data Portaal (OData API). 
 Allows developers to view and explore relations and available data in the OData API.
+
+Demo: http://explorer.tkapi.org
 
 Based on Angular 6+ and Bootstrap 4.
 
