@@ -51,7 +51,7 @@ export class EntityCollection extends BaseObject {
   entities: Entity[] = [];
   entitiesVisible: Entity[] = [];
   nextPageUrl: string;
-  public static readonly MAX_ENTITIES = 20;
+  // public static readonly MAX_ENTITIES = 20;
 
   protected doCreateFromResource(resource: EntityCollectionResource, entityCollection: EntityCollection) {
     entityCollection.type = resource.type;
@@ -65,8 +65,7 @@ export class EntityCollection extends BaseObject {
         entityCollection.entities.push(ObjectFactory.createFromResource(Entity, resourceItem));
       }
     }
-    const entities = entityCollection.entities.slice();
-    entityCollection.entitiesVisible = entities.splice(0, EntityCollection.MAX_ENTITIES);
+    entityCollection.entitiesVisible = entityCollection.entities;
     return entityCollection;
   }
 }
@@ -75,6 +74,7 @@ export class EntityCollection extends BaseObject {
 export class EntityAttribute {
   key: string;
   value: string;
+  isVisible = true;
 }
 
 
@@ -93,24 +93,35 @@ export class Entity extends BaseObject {
   attributes: EntityAttribute[] = [];
   relations: EntityRelation[] = [];
 
+  public getAttribute(key: string): EntityAttribute | null {
+    for (const attribute of this.attributes) {
+      if (attribute.key === key) {
+        return attribute;
+      }
+    }
+    return null;
+  }
+
   protected doCreateFromResource(resource: EntityResource, entity: Entity) {
     entity.json = resource;
 
     Object.keys(entity.json).forEach(key => {
+      let isVisible = true;
+
       if (key.includes('@odata.type')) {
-        return;
+        isVisible = false;
       }
 
       if (key.includes('odata.editLink')) {
-        return;
+        isVisible = false;
       }
 
       if (key === 'odata.id') {
-        return;
+        isVisible = false;
       }
 
-      if (key === 'GewijzigdOp' || key === 'ApiGewijzigdOp' || key === 'Verwijderd') {
-        return;
+      if (key === 'ApiGewijzigdOp' || key === 'Verwijderd') {
+        isVisible = false;
       }
 
       if (key === 'odata.type') {
@@ -129,6 +140,7 @@ export class Entity extends BaseObject {
         const attribute = new EntityAttribute();
         attribute.key = key;
         attribute.value = entity.json[key];
+        attribute.isVisible = isVisible;
         entity.attributes.push(attribute);
       }
     });

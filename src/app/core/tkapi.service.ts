@@ -32,8 +32,8 @@ export class TKApiService {
     return this.cacheService.get(url, observable, this.CACHE_EXPIRATION_MILLIS);
   }
 
-  public getEntitiesByType(type: string): Observable<EntityCollection> {
-    const url = Utils.API_BASE_URL + 'entities/' + type + '/';
+  public getEntitiesByType(type: string, maxItems: number, skipItems: number): Observable<EntityCollection> {
+    const url = Utils.API_BASE_URL + 'entities/' + type + '/?' + 'max_items=' + maxItems + '&skip_items=' + skipItems;
     console.log(url);
     const observable = new Observable<EntityCollection>(observer => {
       this.httpClient.get<EntityCollectionResource>(url).subscribe(resources => {
@@ -50,6 +50,18 @@ export class TKApiService {
     const observable = new Observable<EntityCollection>(observer => {
       this.httpClient.get<EntityCollectionResource>(url).subscribe(resource => {
         observer.next(ObjectFactory.createFromResource(EntityCollection, resource));
+        observer.complete();
+      });
+    });
+    return this.cacheService.get(url, observable, this.CACHE_EXPIRATION_MILLIS);
+  }
+
+  public getEntityLinks(entityUrl: string, relatedEntityType: string): Observable<string[]> {
+    const url = Utils.API_BASE_URL + 'entity/links/?entity_url=' + entityUrl + '&related_type=' +  relatedEntityType;
+    // console.log(url);
+    const observable = new Observable<string[]>(observer => {
+      this.httpClient.get<string[]>(url).subscribe(links => {
+        observer.next(links);
         observer.complete();
       });
     });

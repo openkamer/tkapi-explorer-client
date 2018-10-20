@@ -5,28 +5,37 @@
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
-      <div *ngFor="let attributes of entity.attributes">
-        <span style="color: red;">{{ attributes.key }}</span> :
-        <span style="color: green;">{{ attributes.value }}</span>
+      <div *ngFor="let attribute of entity.attributes">
+        <div *ngIf="attribute.isVisible">
+          <span style="color: red;">{{ attribute.key }}</span> :
+          <span style="color: green;">{{ attribute.value }}</span>
+        </div>
       </div>
     </li>
     <li class="list-group-item">
+
       <div *ngFor="let relation of entity.relations">
+
         <span class="font-weight-bold" style="color: purple;">{{ relation.key }}</span> :
         <a *ngIf="relation.sizeKnown && relation.size" [routerLink]="['/entities/list']" [queryParams]="{ url: relation.url }">
           {{ relation.type }}
         </a>
+
         <span *ngIf="relation.size >= 250">
           (>{{ relation.size }})
         </span>
+
         <span *ngIf="relation.size > 0 && relation.size < 250">
           ({{ relation.size }})
         </span>
+
         <span *ngIf="relation.sizeKnown && relation.size === 0">None</span>
+
         <span *ngIf="!relation.sizeKnown">
           <i class="fa fa-spinner fa-spin"></i> loading relation...
         </span>
       </div>
+
     </li>
   </ul>
 </div>

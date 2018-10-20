@@ -16,7 +16,7 @@
         </div>
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let entityType of entityTypes">
-            <a [routerLink]="['/entities/type/']" [queryParams]="{ type: entityType.type }">
+            <a [routerLink]="['/entities/type/']" [queryParams]="{ type: entityType.type, page: 0 }">
               <span class="h6">{{ entityType.type }}</span>
             </a>
           </li>
