@@ -14,7 +14,7 @@
           [totalItems]="entityCollection.totalItems"
           [(ngModel)]="currentPage"
           (pageChanged)="pageChanged($event)"
-          [maxSize]="10"
+          [maxSize]="maxPaginatorSize()"
           [boundaryLinks]="false">
       </pagination>
     </div>

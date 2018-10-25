@@ -50,4 +50,11 @@ export class EntitiesListComponent {
     this.router.navigateByUrl(urlTree);
     this.getEntities();
   }
+
+  maxPaginatorSize(): number {
+    if (window.innerWidth < 1200) {
+      return 5;
+    }
+    return 10;
+  }
 }
