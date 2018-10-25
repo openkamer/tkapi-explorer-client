@@ -16,8 +16,13 @@
 
       <div *ngFor="let relation of entity.relations">
 
-        <span class="font-weight-bold" style="color: purple;">{{ relation.key }}</span> :
-        <a *ngIf="relation.sizeKnown && relation.size" [routerLink]="['/entities/list']" [queryParams]="{ url: relation.url, totalItems: relation.size }">
+        <span *ngIf="!relation.sizeKnown">
+          <span class="font-weight-bold" style="color: purple;">{{ relation.key }}</span> :
+        </span>
+        <a *ngIf="relation.sizeKnown && relation.size"
+           class="font-weight-bold"
+           [routerLink]="['/entities/list']"
+           [queryParams]="{ url: relation.url, totalItems: relation.size }">
           {{ relation.type }}
         </a>
 
@@ -29,7 +34,9 @@
           ({{ relation.size }})
         </span>
 
-        <span *ngIf="relation.sizeKnown && relation.size === 0">None</span>
+        <span *ngIf="relation.sizeKnown && relation.size === 0">
+          <span class="font-weight-bold" style="color: grey;">{{ relation.key }}</span> (0)
+        </span>
 
         <span *ngIf="!relation.sizeKnown">
           <i class="fa fa-spinner fa-spin text-primary"></i>
