@@ -118,6 +118,10 @@ export class Entity extends BaseObject {
         isVisible = false;
       }
 
+      if (key.includes('odata.metadata')) {
+        isVisible = false;
+      }
+
       if (key === 'odata.id') {
         isVisible = false;
       }
