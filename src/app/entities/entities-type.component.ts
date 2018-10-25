@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TKApiService } from '../core/tkapi.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EntitiesListComponent } from './entities-list.component';
+import {MatomoTracker} from 'ngx-matomo';
 
 
 @Component({
@@ -10,8 +11,9 @@ import { EntitiesListComponent } from './entities-list.component';
 })
 export class EntitiesTypeComponent extends EntitiesListComponent implements OnInit {
 
-  constructor(protected tkapiService: TKApiService, protected route: ActivatedRoute, protected router: Router) {
-    super(tkapiService, route, router);
+  constructor(protected tkapiService: TKApiService, protected route: ActivatedRoute,
+              protected router: Router, protected matomoTracker: MatomoTracker) {
+    super(tkapiService, route, router, matomoTracker);
   }
 
   ngOnInit(): void {

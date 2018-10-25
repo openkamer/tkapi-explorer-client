@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
 import { PaginationModule, ModalModule } from 'ngx-bootstrap';
+import { MatomoModule } from 'ngx-matomo';
 
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { NavModule } from './nav/nav.module';
+
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { NavModule } from './nav/nav.module';
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
+    MatomoModule,
     CoreModule,
     NavModule,
   ],

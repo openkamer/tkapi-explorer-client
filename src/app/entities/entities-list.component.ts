@@ -4,6 +4,8 @@ import { TKApiService } from '../core/tkapi.service';
 import { EntityCollection } from '../core/entities';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { MatomoTracker } from 'ngx-matomo';
+
 
 @Component({
   templateUrl: 'entities-list.component.html',
@@ -15,7 +17,8 @@ export class EntitiesListComponent {
   protected url: string;
   private totalItems: number;
 
-  constructor(protected tkapiService: TKApiService, protected route: ActivatedRoute, protected router: Router) {}
+  constructor(protected tkapiService: TKApiService, protected route: ActivatedRoute,
+              protected router: Router, protected matomoTracker: MatomoTracker) {}
 
   protected initialize() {
     this.route.queryParams.subscribe(queryParams => {
@@ -36,6 +39,7 @@ export class EntitiesListComponent {
     this.tkapiService.getEntitiesUrl(this.url, this.ENTITIES_PER_PAGE, skipItems, isSingleItem)
       .subscribe(entityCollection => {
         this.entityCollection = entityCollection;
+        this.matomoTracker.trackEvent('API CALL', 'getEntities', this.url);
       });
   }
 

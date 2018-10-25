@@ -6,6 +6,8 @@ import { CollapseModule, ModalModule } from 'ngx-bootstrap';
 import { PaginationModule } from 'ngx-bootstrap';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 
+import { MatomoModule } from 'ngx-matomo';
+
 /**
  * The Shared module contains general modules and components to be used in feature modules.
  */
@@ -17,6 +19,7 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
     ModalModule,
     PaginationModule,
     PrettyJsonModule,
+    MatomoModule,
   ],
   declarations: [
   ],
@@ -29,6 +32,7 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
     ModalModule,
     PaginationModule,
     PrettyJsonModule,
+    MatomoModule,
   ],
 })
 export class SharedModule {
