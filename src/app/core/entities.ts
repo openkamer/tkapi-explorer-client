@@ -95,6 +95,10 @@ export class Entity extends BaseObject {
   attributes: EntityAttribute[] = [];
   relations: EntityRelation[] = [];
 
+  public getId(): string {
+    return this.getAttribute('Id').value;
+  }
+
   public getAttribute(key: string): EntityAttribute | null {
     for (const attribute of this.attributes) {
       if (attribute.key === key) {

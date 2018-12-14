@@ -15,7 +15,8 @@
           [(ngModel)]="currentPage"
           (pageChanged)="pageChanged($event)"
           [maxSize]="maxPaginatorSize()"
-          [boundaryLinks]="false">
+          [itemsPerPage]="ENTITIES_PER_PAGE"
+          [boundaryLinks]="true">
       </pagination>
     </div>
   </div>
