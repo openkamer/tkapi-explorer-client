@@ -1,5 +1,4 @@
 import {BaseResource, EntityCollectionResource, EntityResource, EntityTypeResource} from './entities.resource';
-import { Utils } from './utils';
 
 
 export namespace ObjectFactory {
@@ -118,6 +117,10 @@ export class Entity extends BaseObject {
         isVisible = false;
       }
 
+      if (key.includes('@odata.context')) {
+        isVisible = false;
+      }
+
       if (key.includes('odata.editLink')) {
         isVisible = false;
       }
@@ -126,24 +129,32 @@ export class Entity extends BaseObject {
         isVisible = false;
       }
 
-      if (key === 'odata.id') {
+      if (key === '@odata.id') {
         isVisible = false;
       }
 
-      if (key === 'ApiGewijzigdOp' || key === 'Verwijderd') {
+      if (key.includes('@odata.associationLink')) {
         isVisible = false;
       }
+
+      if (key.includes('#TK.DA.GGM.OData.Resource')) {
+        isVisible = false;
+      }
+
+      // if (key === 'ApiGewijzigdOp' || key === 'Verwijderd') {
+      //   isVisible = false;
+      // }
 
       if (key === 'odata.type') {
         entity.json[key] = entity.json[key].replace('TK.DA.GGM.Models.OData.', '');
         this.type = entity.json[key];
       }
 
-      if (key.includes('@odata.navigationLinkUrl')) {
+      if (key.includes('@odata.navigationLink')) {
         const url = entity.json[key];
         const relation = new EntityRelation();
-        relation.key = key.replace('@odata.navigationLinkUrl', '');
-        relation.type = key.replace('@odata.navigationLinkUrl', '');
+        relation.key = key.replace('@odata.navigationLink', '');
+        relation.type = key.replace('@odata.navigationLink', '');
         relation.url = url;
         entity.relations.push(relation);
       } else {

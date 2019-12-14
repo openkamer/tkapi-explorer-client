@@ -26,11 +26,7 @@
           {{ relation.type }}
         </a>
 
-        <span *ngIf="relation.size >= 250">
-          (>{{ relation.size }})
-        </span>
-
-        <span *ngIf="relation.size > 0 && relation.size < 250">
+        <span *ngIf="relation.size > 0">
           ({{ relation.size }})
         </span>
 
