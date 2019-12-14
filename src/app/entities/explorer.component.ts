@@ -16,7 +16,6 @@ export class ExplorerComponent implements OnInit {
   ngOnInit(): void {
     this.tkapiService.getEntityTypes().subscribe(entityTypes => {
       this.entityTypes = entityTypes;
-      console.log(this.entityTypes);
     });
   }
 }

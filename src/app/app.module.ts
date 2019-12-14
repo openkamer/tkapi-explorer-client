@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
 import { PaginationModule, ModalModule } from 'ngx-bootstrap';
@@ -17,6 +18,7 @@ import { NavModule } from './nav/nav.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
