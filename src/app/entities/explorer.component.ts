@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { TKApiService } from '../core/tkapi.service';
-import {EntityCollection, EntityType} from '../core/entities';
+import { EntityType } from '../core/entities';
 
 
 @Component({
@@ -11,7 +10,7 @@ import {EntityCollection, EntityType} from '../core/entities';
 export class ExplorerComponent implements OnInit {
   entityTypes: EntityType[];
 
-  constructor(private tkapiService: TKApiService, private route: ActivatedRoute) {}
+  constructor(private tkapiService: TKApiService) {}
 
   ngOnInit(): void {
     this.tkapiService.getEntityTypes().subscribe(entityTypes => {

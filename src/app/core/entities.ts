@@ -2,16 +2,16 @@ import {BaseResource, EntityCollectionResource, EntityResource, EntityTypeResour
 
 
 export namespace ObjectFactory {
-  export function create<T extends BaseObject>(c: {new(): T; }): T {
+  export function create<T extends BaseObject>(c: new() => T): T {
     return new c();
   }
 
-  export function createFromResource<T extends BaseObject>(c: {new(): T; }, resource: BaseResource): T {
+  export function createFromResource<T extends BaseObject>(c: new() => T, resource: BaseResource): T {
     const object = new c();
     return object.fromResource(resource, object) as T;
   }
 
-  export function createFromResources<T extends BaseObject>(c: {new(): T; }, resources: BaseResource[]): T[] {
+  export function createFromResources<T extends BaseObject>(c: new() => T, resources: BaseResource[]): T[] {
     const objects = [];
     for (const resource of resources) {
       objects.push(createFromResource(c, resource));
@@ -26,12 +26,9 @@ export abstract class BaseObject {
   protected abstract doCreateFromResource(resource: BaseResource, baseObject: BaseObject);
 
   public fromResource(resource: BaseResource, object: BaseObject) {
-    BaseObject.setBaseProperties(resource, object);
     this.doCreateFromResource(resource, object);
     return object;
   }
-
-  private static setBaseProperties(resource: BaseResource, baseObject: BaseObject) { }
 }
 
 
@@ -112,42 +109,31 @@ export class Entity extends BaseObject {
 
     Object.keys(entity.json).forEach(key => {
       let isVisible = true;
+      const hideKeys = [
+        'Id@odata.type',
+        '@odata.id',
+        '@odata.context',
+        '@odata.editLink',
+        '@odata.metadata',
+        '@odata.associationLink',
+        '#TK.DA.GGM.OData.Resource',
+      ];
 
-      if (key.includes('@odata.type')) {
-        isVisible = false;
-      }
-
-      if (key.includes('@odata.context')) {
-        isVisible = false;
-      }
-
-      if (key.includes('odata.editLink')) {
-        isVisible = false;
-      }
-
-      if (key.includes('odata.metadata')) {
-        isVisible = false;
-      }
-
-      if (key === '@odata.id') {
-        isVisible = false;
-      }
-
-      if (key.includes('@odata.associationLink')) {
-        isVisible = false;
-      }
-
-      if (key.includes('#TK.DA.GGM.OData.Resource')) {
-        isVisible = false;
+      for (const hideKey of hideKeys) {
+        if (key.includes(hideKey)) {
+          isVisible = false;
+        }
       }
 
       // if (key === 'ApiGewijzigdOp' || key === 'Verwijderd') {
       //   isVisible = false;
       // }
 
-      if (key === 'odata.type') {
-        entity.json[key] = entity.json[key].replace('TK.DA.GGM.Models.OData.', '');
+      if (key === '@odata.type') {
+        entity.json[key] = entity.json[key].replace('#TK.DA.GGM.OData.', '');
         this.type = entity.json[key];
+      } else if (key.includes('@odata.type')) {
+        isVisible = false;
       }
 
       if (key.includes('@odata.navigationLink')) {
@@ -165,6 +151,19 @@ export class Entity extends BaseObject {
         entity.attributes.push(attribute);
       }
     });
+
+    function sortEntity(a, b) {
+      if (a.key < b.key) {
+        return -1;
+      }
+      if (a.key > b.key) {
+        return 1;
+      }
+      return 0;
+    }
+
+    entity.attributes.sort(sortEntity);
+    entity.relations.sort(sortEntity);
     return entity;
   }
 }
